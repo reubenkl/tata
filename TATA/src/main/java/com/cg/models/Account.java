@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 
 
 
+
 @Entity
 public class Account {
 	
@@ -22,7 +23,7 @@ public class Account {
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
 	private Long accountId;
 
-	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+	@OneToOne
 	private User user;
 	
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
@@ -33,7 +34,7 @@ public class Account {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<ServiceRequest>requests;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn
     private Pack currentPack;
 

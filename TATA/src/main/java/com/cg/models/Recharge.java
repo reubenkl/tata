@@ -7,72 +7,37 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Recharge {
-	
 	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
 	
 	@ManyToOne
-	@JoinColumn
     private Account account;
-	
+    
     private Double amount;
-    
     private Integer daysValidity;
-    
     private String planDescription;
-    
     private String planName;
-    
     private LocalDate purchasedDate;
     
     @OneToMany(mappedBy = "recharge")
     private List<Channel> channels;
     
 //    private Pack pack;
+    
 
     private boolean active;
 
-    
-    //================================================//
-  	//===============CONSTRUCTORS=====================//
-  	//================================================//
-    
-    public Recharge() {
-    	super();
-    	// TODO Auto-generated constructor stub
-    }
-    
-    public Recharge(Account account, Double amount, Integer daysValidity, String planDescription,
-			String planName, LocalDate purchasedDate,boolean active) {
-		super();
-		this.account = account;
-		this.amount = amount;
-		this.daysValidity = daysValidity;
-		this.planDescription = planDescription;
-		this.planName = planName;
-		this.purchasedDate = purchasedDate;
-//		this.pack = pack;
-		this.active = active;
-	}
-
-    //===========================================================================//
-  	//==========================SETTERS AND GETTERS==============================//
-  	//===========================================================================//
-
-
-	public Long getId() {
+    public Long getId() {
         return id;
     }
 
-
-	public void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -154,6 +119,7 @@ public class Recharge {
 				+ ", planDescription=" + planDescription + ", planName=" + planName + ", purchasedDate=" + purchasedDate
 				+ ", channels=" + channels + ", active=" + active + "]";
 	}
+    
     
     
 }

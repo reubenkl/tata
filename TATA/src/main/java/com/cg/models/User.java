@@ -11,9 +11,9 @@ import javax.persistence.OneToOne;
 public class User {
 	
 	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY)
-	private Long id;
-
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+	
     private String username;
 
     private String firstName;
@@ -27,38 +27,12 @@ public class User {
     @OneToOne
     @JoinColumn
     private Account account;
-    
-    
-    //================================================//	
-  	//===============CONSTRUCTORS=====================//
-	//================================================//
-    
-    public User() {
-    	super();
-    	// TODO Auto-generated constructor stub
-    }
-    
-    public User(String username, String firstName, String lastName, String password, String role,
-			Account account) {
-		super();
-		this.username = username;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.password = password;
-		this.role = role;
-		this.account = account;
-	}
 
-    //===========================================================================//
-  	//==========================SETTERS AND GETTERS==============================//
-  	//===========================================================================//
-
-	public Long getId() {
+    public Long getId() {
         return id;
     }
 
-
-	public void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -109,13 +83,4 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", password=" + password + ", role=" + role + ", account=" + account + "]";
-	}
-    
-    
-
 }
