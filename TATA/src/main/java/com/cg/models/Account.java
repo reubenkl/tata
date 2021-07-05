@@ -70,11 +70,11 @@ public class Account {
         this.accountId = accountId;
     }
 
-    public User getCustomer() {
+    public User getUser() {
         return user;
     }
 
-    public void setCustomer(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
