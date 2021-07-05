@@ -8,12 +8,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class ServiceRequest {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	
-	 private Long id;
+		@Id
+		@GeneratedValue(strategy=GenerationType.IDENTITY)
+		private Long id;
+		
+		@JsonFormat(pattern = "dd/MM/yyyy")
 	    private LocalDate requestedDate;
 	    
 	    @ManyToOne

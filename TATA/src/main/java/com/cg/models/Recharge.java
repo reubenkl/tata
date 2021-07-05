@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Recharge {
 	@Id
@@ -23,6 +25,8 @@ public class Recharge {
     private Integer daysValidity;
     private String planDescription;
     private String planName;
+    
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate purchasedDate;
     
     @OneToMany(mappedBy = "recharge")

@@ -24,8 +24,7 @@ public class User {
 
     private String role;
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(mappedBy = "user")
     private Account account;
 
     public Long getId() {

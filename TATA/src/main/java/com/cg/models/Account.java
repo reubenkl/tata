@@ -8,10 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 
@@ -22,6 +23,7 @@ public class Account {
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
 	private Long accountId;
+	
 
 	@OneToOne
 	private User user;
@@ -29,13 +31,13 @@ public class Account {
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Recharge>recharges;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate registeredDate;
     
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<ServiceRequest>requests;
     
     @ManyToOne
-    @JoinColumn
     private Pack currentPack;
 
     //================================================//
