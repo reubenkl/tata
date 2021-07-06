@@ -2,6 +2,7 @@ package com.cg.services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -13,16 +14,16 @@ public interface IAccountService {
 	
 	//changed from add to addAccount
 	Account createAccount(Account account);
+	
+	List<Account> findAll();
 
-//    Account findByAccountId(Long accountId) ;
-//
-//    Account update(Account account);
+    Optional<Account> getByAccountId(Long accountId) ;
+
+    Account updateAccount(Long accountId, Account account);
     
-    List<Account> findAll();
+    void deleteByAccountId(Long accountId);
 
-//    void deleteByAccountId(Long accountId);
-//
-//    int countCreatedAccountsInPeriod(LocalDate startDate, LocalDate endDate);
+    int countCreatedAccountsInPeriod(LocalDate startDate, LocalDate endDate);
 //
 //  //removed s in accounts
 //    int countCreatedAccount(LocalDate startDate, LocalDate endDate);

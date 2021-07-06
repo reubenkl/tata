@@ -12,12 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
+//@JsonIgnoreProperties({"hibenateLazyInitializer", "handler"})
 public class Account {
 	
 	@Id
@@ -31,7 +33,7 @@ public class Account {
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Recharge>recharges;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "yyyy-MM-dd")
     private LocalDate registeredDate;
     
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)

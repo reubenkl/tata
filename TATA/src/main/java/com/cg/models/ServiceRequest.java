@@ -21,6 +21,7 @@ public class ServiceRequest {
 	    
 	    @ManyToOne
 	    private Account account;
+	    
 	    private String message;
 
 	    // make it true when request is created, false when user has created a recharge
