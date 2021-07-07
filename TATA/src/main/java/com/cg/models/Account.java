@@ -8,116 +8,89 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @Entity
-//@JsonIgnoreProperties({"hibenateLazyInitializer", "handler"})
+@NoArgsConstructor
 public class Account {
 	
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
 	private Long accountId;
 	
-
-	@OneToOne
+	@NotNull
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
-    private List<Recharge>recharges;
-	
+	@NotNull
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "yyyy-MM-dd")
-    private LocalDate registeredDate;
+    private LocalDate registeredDate = LocalDate.now();
     
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
-    private List<ServiceRequest>requests;
+    @JsonManagedReference
+    private List<ServiceRequest> requests;
     
-    @ManyToOne
-    private Pack currentPack;
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Pack> packs ;
 
-    //================================================//
-  	//===============CONSTRUCTORS=====================//
-  	//================================================//
-    
-    public Account() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-    
-	public Account(User user, LocalDate registeredDate, Pack currentPack) {
-		super();
-		this.user = user;
-		this.registeredDate = registeredDate;
-		this.currentPack = currentPack;
-	}
-
-
-	//===========================================================================//
-	//==========================SETTERS AND GETTERS==============================//
-	//===========================================================================//
-	
 	public Long getAccountId() {
-        return accountId;
-    }
+		return accountId;
+	}
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
-    }
+	public void setAccountId(Long accountId) {
+		this.accountId = accountId;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public List<Recharge> getRecharges() {
-        return recharges;
-    }
+	public LocalDate getRegisteredDate() {
+		return registeredDate;
+	}
 
-    public void setRecharges(List<Recharge> recharges) {
-        this.recharges = recharges;
-    }
-    public LocalDate getRegisteredDate() {
-        return registeredDate;
-    }
+	public void setRegisteredDate(LocalDate registeredDate) {
+		this.registeredDate = registeredDate;
+	}
 
-    public void setRegisteredDate(LocalDate registeredDate) {
-        this.registeredDate = registeredDate;
-    }
+	public List<ServiceRequest> getRequests() {
+		return requests;
+	}
 
-    public List<ServiceRequest> getRequests() {
-        return requests;
-    }
+	public void setRequests(List<ServiceRequest> requests) {
+		this.requests = requests;
+	}
 
-    public void setRequests(List<ServiceRequest> requests) {
-        this.requests = requests;
-    }
+	public List<Pack> getPacks() {
+		return packs;
+	}
 
-    public Pack getCurrentPack() {
-        return currentPack;
-    }
+	public void setPacks(List<Pack> packs) {
+		this.packs = packs;
+	}
 
-    public void setCurrentPack(Pack currentPack) {
-        this.currentPack = currentPack;
-    }
-    
-    
 	@Override
 	public String toString() {
-		return "Account [accountId=" + accountId + ", user=" + user + ", recharges=" + recharges + ", registeredDate="
-				+ registeredDate + ", requests=" + requests + ", currentPack=" + currentPack + "]";
+		return "Account [accountId=" + accountId + ", user=" + user + ", registeredDate=" + registeredDate
+				+ ", requests=" + requests + ", packs=" + packs + "]";
 	}
-    
-    
+
 }
 

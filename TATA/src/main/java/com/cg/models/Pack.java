@@ -2,104 +2,130 @@ package com.cg.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class Pack {
+public class Pack implements Comparable<Pack>  {
 	
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long packId;
 	
-    private Double cost;
+    private Double packCost;
     
-    private Integer daysValidity;
+    private Integer packValidity;
    
-    private String description;
+    private String packDescription;
     
-    private String planName;
+    private String packName;
     
-    @OneToMany(mappedBy = "pack")
-    private List<Channel> channels;
+    private Integer packCount = 0;
     
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Channel> channelList;
     
-    //================================================//
-	//===============CONSTRUCTORS=====================//
-	//================================================//
+    @OneToMany(mappedBy = "pack", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Recharge> recharges;
     
-    public Pack() {
-		super();
-		// TODO Auto-generated constructor stub
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "account_id")
+    private Account account;
+    
+    @Override
+    public int compareTo(Pack o) {
+        Pack p = (Pack) o;
+        if (this.packCost > p.packCost) {
+            return 1;
+        } else
+            return -1;
+    }
+    @Transient
+    private long accountId;
+
+	public Long getPackId() {
+		return packId;
 	}
-
-	public Pack(Double cost, Integer daysValidity, String description, String planName) {
-		super();
-		this.cost = cost;
-		this.daysValidity = daysValidity;
-		this.description = description;
-		this.planName = planName;
+	public void setPackId(Long id) {
+		this.packId = id;
 	}
-
-	//===========================================================================//
-	//==========================SETTERS AND GETTERS==============================//
-	//===========================================================================//
-	
-	public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Double getCost() {
-        return cost;
-    }
-
-    public void setCost(Double cost) {
-        this.cost = cost;
-    }
-
-    public Integer getDaysValidity() {
-        return daysValidity;
-    }
-
-    public void setDaysValidity(Integer daysValidity) {
-        this.daysValidity = daysValidity;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPlanName() {
-        return planName;
-    }
-
-    public void setPlanName(String planName) {
-        this.planName = planName;
-    }
-
-    public List<Channel> getChannels() {
-        return channels;
-    }
-
-    public void setChannels(List<Channel> channels) {
-        this.channels = channels;
-    }
-
+	public Double getPackCost() {
+		return packCost;
+	}
+	public void setPackCost(Double packCost) {
+		this.packCost = packCost;
+	}
+	public Integer getPackValidity() {
+		return packValidity;
+	}
+	public void setPackValidity(Integer packValidity) {
+		this.packValidity = packValidity;
+	}
+	public String getPackDescription() {
+		return packDescription;
+	}
+	public void setPackDescription(String packDescription) {
+		this.packDescription = packDescription;
+	}
+	public String getPackName() {
+		return packName;
+	}
+	public void setPackName(String packName) {
+		this.packName = packName;
+	}
+	public Integer getPackCount() {
+		return packCount;
+	}
+	public void setPackCount(Integer packCount) {
+		this.packCount = packCount;
+	}
+	public List<Channel> getChannelList() {
+		return channelList;
+	}
+	public void setChannelList(List<Channel> channelList) {
+		this.channelList = channelList;
+	}
+	public List<Recharge> getRecharges() {
+		return recharges;
+	}
+	public void setRecharges(List<Recharge> recharges) {
+		this.recharges = recharges;
+	}
+	public Account getAccount() {
+		return account;
+	}
+	public void setAccount(Account account) {}
+	public long getAccountId() {
+		return accountId;
+	}
+	public void setAccountId(long accountId) {
+		this.accountId = accountId;
+	}
 	@Override
 	public String toString() {
-		return "Pack [id=" + id + ", cost=" + cost + ", daysValidity=" + daysValidity + ", description=" + description
-				+ ", planName=" + planName + ", channels=" + channels + "]";
+		return "Pack [id=" + packId + ", packCost=" + packCost + ", packValidity=" + packValidity + ", packDescription="
+				+ packDescription + ", packName=" + packName + ", packCount=" + packCount + ", channelList="
+				+ channelList + ", recharges=" + recharges + ", account=" + account + ", accountId=" + accountId + "]";
 	}
     
     
