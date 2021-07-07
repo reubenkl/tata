@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class Account {
 	@NotNull
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
+	@JsonIgnore
 	private User user;
 	
 	@NotNull
